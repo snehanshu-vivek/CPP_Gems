@@ -1,0 +1,57 @@
+Runtime Polymorphism
+
+Runtime polymorphism in C++ refers to the ability of a program to determine which method to execute at runtime rather than at compile time.
+This is typically achieved through the use of virtual functions and inheritance. 
+Here’s how it works:
+
+Key Concepts
+Virtual Functions:
+A function declared with the virtual keyword in a base class can be overridden in derived classes. 
+This allows the program to call the appropriate derived class's implementation based on the actual object type, not the pointer or reference type.
+
+Base Class Pointers/References:
+You can use pointers or references of a base class type to refer to objects of derived classes. 
+This is where polymorphism shines—when a base class pointer/reference calls a virtual function, the correct derived class function is executed based on the actual object type.
+
+Dynamic Binding:
+This is the mechanism that resolves which function to call at runtime. 
+The C++ runtime uses a structure called the vtable (virtual table) to keep track of the function implementations for each class.
+
+Example
+Here's a simple example to illustrate runtime polymorphism:
+
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    virtual void show() { // Virtual function
+        cout << "Base class show function called." << endl;
+    }
+    virtual ~Base() {} // Virtual destructor
+};
+
+class Derived : public Base {
+public:
+    void show() override { // Override the base class method
+        cout << "Derived class show function called." << endl;
+    }
+};
+
+int main() {
+    Base* b;          // Base class pointer
+    Derived d;       // Derived class object
+    b = &d;          // Pointing to derived class object
+
+    b->show();       // Calls Derived's show function
+    return 0;
+}
+
+Output
+Derived class show function called.
+
+Summary
+Flexibility: Runtime polymorphism allows you to write flexible and reusable code. You can write functions that operate on base class pointers and handle derived classes seamlessly.
+Decoupling: It decouples the code that uses polymorphic objects from the specific implementations, making it easier to extend and maintain.
+Common Use Cases: It's commonly used in scenarios like graphical user interfaces, where different shapes (like circles and squares) may need to be drawn using the same interface.
+In summary, runtime polymorphism is a powerful feature in C++ that enhances the language's ability to support object-oriented programming by enabling dynamic method resolution.
